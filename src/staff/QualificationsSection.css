@@ -1,0 +1,74 @@
+.qualifications-section table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .qualifications-section th,
+  .qualifications-section td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .qualifications-section th {
+    background-color: #f8f8f8;
+    font-weight: bolder;
+  }
+  
+  .qualifications-section button {
+    padding: 5px 8px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .section-actions {
+    margin-top: 15px;
+    text-align: right;
+  }
+  
+  .section-actions button {
+    padding: 8px 15px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  
+  /* src/components/staff/qualifications/QualificationsSection.css */
+.qualifications-section {
+  margin-top: 20px;
+}
+
+.action-buttons {
+  margin-bottom: 16px;
+}
+
+.form-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.form-content {
+  background: white;
+  padding: 24px;
+  border-radius: 4px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.qualification-details p {
+  margin-bottom: 8px;
+}

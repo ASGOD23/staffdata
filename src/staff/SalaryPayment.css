@@ -1,0 +1,67 @@
+.custom-table-container {
+    margin-top: 20px;
+}
+.custom-table .ant-table-thead > tr > th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+.custom-table .ant-table-tbody > tr:nth-child(odd) {
+    background-color: #fff;
+}
+.custom-table .ant-table-tbody > tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.custom-form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.custom-form .ant-form-item-label > label {
+  font-weight: bold;
+  color: #333;
+}
+.save-button {
+  background-color: #1890ff;
+  color: white;
+}
+
+.save-button:hover {
+    background-color: #40a9ff;
+}
+.cancel-button {
+  background-color: #e6e6e6;
+  color: #333;
+}
+
+.cancel-button:hover{
+    background-color: #d9d9d9;
+}
+.form-actions {
+  text-align: right;
+  margin-top: 20px;
+}
+
+/* Add these to your existing SalaryPayment.css */
+.custom-form .ant-row.ant-form-item-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-form .ant-input-number {
+  width: 100%;
+}
+
+.amount-input-container {
+  display: flex;
+  gap: 8px;
+}
+
+.currency-select {
+  width: 80px;
+}
+
+.amount-input {
+  flex: 1;
+}
