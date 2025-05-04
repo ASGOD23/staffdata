@@ -1,4 +1,3 @@
-/* src/components/staff/EmploymentDetailsForm.css */
 .employment-details-form {
     padding: 20px;
     background-color: #fff;
@@ -109,3 +108,22 @@
   .employment-details-edit-button:hover {
     background-color: #40a9ff;
   }
+
+  /* src/components/staff/EmploymentDetailsModal.css */
+.employment-details-modal .ant-modal-body {
+  padding: 24px;
+}
+
+.employment-details-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.employment-details-modal .ant-modal-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.employment-details-modal .ant-modal-close-x {
+  color: #666;
+}

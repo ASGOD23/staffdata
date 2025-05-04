@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import QualificationsTable from './QualificationsTable';
 import AcademicForm from './AcademicForm';
 import ProfessionalForm from './ProfessionalForm';
@@ -7,18 +7,18 @@ import './QualificationsSection.css';
 
 const QualificationsSection = ({ type }) => {
   const [data, setData] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [currentRecord, setCurrentRecord] = useState(null);
   
   const handleAdd = () => {
     setCurrentRecord(null);
-    setShowForm(true);
+    setShowModal(true);
   };
   
   const handleEdit = (record) => {
     console.log('Editing record:', record);
     setCurrentRecord(record);
-    setShowForm(true);
+    setShowModal(true);
   };
   
   const handleDelete = (id) => {
@@ -39,7 +39,7 @@ const QualificationsSection = ({ type }) => {
         setData([...data, { ...qualification, id: Date.now().toString() }]);
       }
       
-      setShowForm(false);
+      setShowModal(false);
       setCurrentRecord(null);
     } catch (error) {
       console.error('Error saving qualification:', error);
@@ -47,9 +47,11 @@ const QualificationsSection = ({ type }) => {
   };
   
   const handleCancel = () => {
-    setShowForm(false);
+    setShowModal(false);
     setCurrentRecord(null);
   };
+  
+  const modalTitle = `${currentRecord ? 'Edit' : 'Add'} ${type === 'academic' ? 'Academic' : 'Professional'} Qualification`;
   
   return (
     <div className="qualifications-section">
@@ -62,30 +64,36 @@ const QualificationsSection = ({ type }) => {
         </Button>
       </div>
       
-      {showForm ? (
-        <div className="qualification-form">
-          {type === 'academic' ? (
-            <AcademicForm
-              initialValues={currentRecord}
-              onSave={handleSave}
-              onCancel={handleCancel}
-            />
-          ) : (
-            <ProfessionalForm
-              initialValues={currentRecord}
-              onSave={handleSave}
-              onCancel={handleCancel}
-            />
-          )}
-        </div>
-      ) : (
-        <QualificationsTable
-          data={data}
-          type={type}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
-        />
-      )}
+      <QualificationsTable
+        data={data}
+        type={type}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+      
+      {/* Modal for qualification forms */}
+      <Modal
+        title={modalTitle}
+        visible={showModal}
+        onCancel={handleCancel}
+        footer={null}
+        width={800}
+        destroyOnClose={true}
+      >
+        {type === 'academic' ? (
+          <AcademicForm
+            initialValues={currentRecord}
+            onSave={handleSave}
+            onCancel={handleCancel}
+          />
+        ) : (
+          <ProfessionalForm
+            initialValues={currentRecord}
+            onSave={handleSave}
+            onCancel={handleCancel}
+          />
+        )}
+      </Modal>
     </div>
   );
 };

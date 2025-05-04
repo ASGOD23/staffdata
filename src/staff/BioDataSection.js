@@ -1,4 +1,3 @@
-// src/components/BioDataSection.js
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -27,23 +26,35 @@ const BioDataSection = ({ staffId }) => {
 
   useEffect(() => {
     const fetchBioData = async () => {
-      try {
-        const response = await request.get(`/staff/${staffId}`);
-        const employee = response.data.main.Employee;
-        setBioData(employee);
+      if (!staffId) {
+        setLoading(false);
+        setError("No staff ID provided");
+        return;
+      }
 
-        if (employee.date_of_birth) {
-          setDob(new Date(employee.date_of_birth));
+      try {
+        setLoading(true);
+        const response = await request.get(`/staff/${staffId}`);
+        
+        if (response && response.data && response.data.main && response.data.main.Employee) {
+          const employee = response.data.main.Employee;
+          setBioData(employee);
+
+          if (employee.date_of_birth) {
+            setDob(new Date(employee.date_of_birth));
+          }
+        } else {
+          throw new Error("Invalid response structure");
         }
       } catch (err) {
         console.error("Error fetching bio data: ", err);
-        setError("Failed to fetch bio data.");
+        setError("Failed to fetch bio data. " + (err.message || ''));
       } finally {
         setLoading(false);
       }
     };
 
-    if (staffId) fetchBioData();
+    fetchBioData();
   }, [staffId]);
 
   const handleChange = (e) => {
@@ -53,19 +64,29 @@ const BioDataSection = ({ staffId }) => {
 
   const handleDateChange = (date) => {
     setDob(date);
-    setBioData(prev => ({ ...prev, date_of_birth: date.toISOString().split('T')[0] }));
+    setBioData(prev => ({ ...prev, date_of_birth: date ? date.toISOString().split('T')[0] : '' }));
   };
 
-  const handleSave = () => {
-    console.log("Saving bio-data:", bioData);
+  const handleSave = async () => {
+    try {
+      await request.put(`/staff/${staffId}`, bioData);
+      alert("Bio data saved successfully!");
+    } catch (err) {
+      console.error("Error saving bio data: ", err);
+      alert("Failed to save bio data.");
+    }
   };
 
   const handleProposeUpdate = () => {
     console.log("Proposing bio-data update:", bioData);
+    alert("Update proposal submitted!");
   };
 
   if (loading) return <p>Loading bio-data...</p>;
   if (error) return <p className="error">{error}</p>;
+  
+  // If neither loading nor error, but no staffId is provided, show message
+  if (!staffId) return <p>Please select a staff member to view their bio data.</p>;
 
   return (
     <div className="bio-data-section">
@@ -74,7 +95,7 @@ const BioDataSection = ({ staffId }) => {
         <input
           type="text"
           name="first_name"
-          value={bioData.first_name}
+          value={bioData.first_name || ''}
           onChange={handleChange}
           placeholder="First Name"
         />
@@ -85,7 +106,7 @@ const BioDataSection = ({ staffId }) => {
         <input
           type="text"
           name="middle_name"
-          value={bioData.middle_name}
+          value={bioData.middle_name || ''}
           onChange={handleChange}
           placeholder="Middle Name"
         />
@@ -96,7 +117,7 @@ const BioDataSection = ({ staffId }) => {
         <input
           type="text"
           name="last_name"
-          value={bioData.last_name}
+          value={bioData.last_name || ''}
           onChange={handleChange}
           placeholder="Last Name"
         />
@@ -104,7 +125,8 @@ const BioDataSection = ({ staffId }) => {
 
       <div className="form-group">
         <label>Title</label>
-        <select name="title" value={bioData.title} onChange={handleChange}>
+        <select name="title" value={bioData.title || ''} onChange={handleChange}>
+          <option value="">Select Title</option>
           {TITLE_OPTIONS.map((option, index) => (
             <option key={index} value={option}>{option}</option>
           ))}
@@ -113,7 +135,8 @@ const BioDataSection = ({ staffId }) => {
 
       <div className="form-group">
         <label>Gender</label>
-        <select name="gender" value={bioData.gender} onChange={handleChange}>
+        <select name="gender" value={bioData.gender || ''} onChange={handleChange}>
+          <option value="">Select Gender</option>
           {GENDER_OPTIONS.map((option, index) => (
             <option key={index} value={option}>{option}</option>
           ))}
@@ -132,7 +155,8 @@ const BioDataSection = ({ staffId }) => {
 
       <div className="form-group">
         <label>Marital Status</label>
-        <select name="marital_status" value={bioData.marital_status} onChange={handleChange}>
+        <select name="marital_status" value={bioData.marital_status || ''} onChange={handleChange}>
+          <option value="">Select Marital Status</option>
           {MARITAL_STATUS_OPTIONS.map((option, index) => (
             <option key={index} value={option}>{option}</option>
           ))}
@@ -144,7 +168,7 @@ const BioDataSection = ({ staffId }) => {
         <input
           type="email"
           name="email"
-          value={bioData.email}
+          value={bioData.email || ''}
           onChange={handleChange}
           placeholder="Email"
         />
@@ -154,7 +178,7 @@ const BioDataSection = ({ staffId }) => {
         <label>Contact Information</label>
         <textarea
           name="contact_info"
-          value={typeof bioData.contact_info === 'object' ? JSON.stringify(bioData.contact_info) : bioData.contact_info}
+          value={typeof bioData.contact_info === 'object' ? JSON.stringify(bioData.contact_info, null, 2) : bioData.contact_info || ''}
           onChange={handleChange}
           placeholder="Contact Information"
         />

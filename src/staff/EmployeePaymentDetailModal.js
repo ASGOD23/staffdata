@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Button } from 'antd';
-import { SaveOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import React, { useEffect } from 'react';
+import { Modal, Form, Input, Select, Button } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
 import './EmployeePaymentDetail.css';
 
-const EmployeePaymentDetailForm = ({ onFinish, onCancel, initialValues }) => {
+const EmployeePaymentDetailModal = ({ visible, onFinish, onCancel, initialValues }) => {
   const [form] = Form.useForm();
-  const [paymentMode, setPaymentMode] = useState(initialValues?.payment_mode || '');
-  
+  const [paymentMode, setPaymentMode] = React.useState(initialValues?.payment_mode || '');
+ 
   useEffect(() => {
-    form.setFieldsValue(initialValues);
-    setPaymentMode(initialValues?.payment_mode || '');
-  }, [form, initialValues]);
-  
+    if (visible && initialValues) {
+      form.setFieldsValue(initialValues);
+      setPaymentMode(initialValues.payment_mode || '');
+    }
+  }, [form, initialValues, visible]);
+ 
   const handlePaymentModeChange = (value) => {
     setPaymentMode(value);
     if (value === 'Bank Transfer') {
@@ -26,10 +28,39 @@ const EmployeePaymentDetailForm = ({ onFinish, onCancel, initialValues }) => {
       });
     }
   };
-  
+
+  const handleSubmit = () => {
+    form.validateFields()
+      .then(values => {
+        onFinish(values);
+        form.resetFields();
+      })
+      .catch(info => {
+        console.log('Validate Failed:', info);
+      });
+  };
+
+  const handleCancel = () => {
+    form.resetFields();
+    onCancel();
+  };
+ 
   return (
-    <div className="custom-form-container">
-      <Form form={form} layout="vertical" onFinish={onFinish} className="custom-form">
+    <Modal
+      title={initialValues?.employee_id ? `Edit Payment Details - ${initialValues.employee_id}` : "Add Payment Details"}
+      visible={visible}
+      onCancel={handleCancel}
+      footer={[
+        <Button key="cancel" onClick={handleCancel}>
+          Cancel
+        </Button>,
+        <Button key="submit" type="primary" icon={<SaveOutlined />} onClick={handleSubmit}>
+          Save
+        </Button>
+      ]}
+      width={600}
+    >
+      <Form form={form} layout="vertical">
         <Form.Item
           label="Employee ID"
           name="employee_id"
@@ -37,7 +68,7 @@ const EmployeePaymentDetailForm = ({ onFinish, onCancel, initialValues }) => {
         >
           <Input />
         </Form.Item>
-        
+       
         <Form.Item
           label="Payment Mode"
           name="payment_mode"
@@ -48,17 +79,17 @@ const EmployeePaymentDetailForm = ({ onFinish, onCancel, initialValues }) => {
             <Select.Option value="Mobile Money">Mobile Money</Select.Option>
           </Select>
         </Form.Item>
-        
+       
         {paymentMode === 'Bank Transfer' && (
           <>
-            <Form.Item 
+            <Form.Item
               label="Bank Name"
               name="bank_name"
               rules={[{ required: true, message: 'Please enter bank name' }]}
             >
               <Input />
             </Form.Item>
-            <Form.Item 
+            <Form.Item
               label="Account Number"
               name="account_number"
               rules={[{ required: true, message: 'Please enter account number' }]}
@@ -67,10 +98,10 @@ const EmployeePaymentDetailForm = ({ onFinish, onCancel, initialValues }) => {
             </Form.Item>
           </>
         )}
-        
+       
         {paymentMode === 'Mobile Money' && (
           <>
-            <Form.Item 
+            <Form.Item
               label="Mobile Money Provider"
               name="mobile_money_provider"
               rules={[{ required: true, message: 'Please select provider' }]}
@@ -80,7 +111,7 @@ const EmployeePaymentDetailForm = ({ onFinish, onCancel, initialValues }) => {
                 <Select.Option value="Telecel Cash">Telecel Cash</Select.Option>
               </Select>
             </Form.Item>
-            <Form.Item 
+            <Form.Item
               label="Wallet Number"
               name="wallet_number"
               rules={[{ required: true, message: 'Please enter wallet number' }]}
@@ -89,24 +120,13 @@ const EmployeePaymentDetailForm = ({ onFinish, onCancel, initialValues }) => {
             </Form.Item>
           </>
         )}
-        
+       
         <Form.Item label="Additional Info" name="additional_info">
           <Input.TextArea />
         </Form.Item>
-        
-        {/* The is_verified Switch has been removed as requested */}
-        
-        <div className="form-actions">
-          <Button type="primary" htmlType="submit" icon={<SaveOutlined />} className="save-button">
-            Save
-          </Button>
-          <Button onClick={onCancel} icon={<CloseCircleOutlined />} className="cancel-button">
-            Cancel
-          </Button>
-        </div>
       </Form>
-    </div>
+    </Modal>
   );
 };
 
-export default EmployeePaymentDetailForm;
+export default EmployeePaymentDetailModal;

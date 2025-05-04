@@ -1,4 +1,7 @@
+// src/components/staff/EmploymentDetailsSection.js
 import React from 'react';
+import { Button } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import './EmploymentDetailsSection.css';
 
 const EmploymentDetailsSection = ({ employmentDetails, onEdit }) => {
@@ -6,12 +9,14 @@ const EmploymentDetailsSection = ({ employmentDetails, onEdit }) => {
     <div className="employment-details-section">
       <div className="section-header">
         <h3>Employment Details</h3>
-        <button
-          className="employment-details-edit-button"
+        <Button 
+          type="primary" 
+          icon={<EditOutlined />}
           onClick={onEdit}
+          className="edit-button"
         >
-          Edit Employment Details
-        </button>
+          Edit Details
+        </Button>
       </div>
       
       {employmentDetails?.branch && (
