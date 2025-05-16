@@ -1,0 +1,35 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: blue ;
+    color: white;
+    width: 100%;
+    height: 20px;
+  }
+  
+  .main-header__left-logo img,
+  .main-header__right-logo img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+  }
+  
+  .main-header__company-name {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 1000;
+    color: var(--text-primary);
+  }
+  
+  @media (max-width: 768px) {
+    .main-header__company-name {
+      font-size: 1.2rem;
+    }
+    
+    .main-header__left-logo img,
+    .main-header__right-logo img {
+      height: 30px;
+    }
+  }
