@@ -1,6 +1,6 @@
-/* src/components/staff/QualificationsSection.css */
 .qualifications-section {
   margin-top: 20px;
+  
 }
 
 .action-buttons {
@@ -14,9 +14,9 @@
 
 .qualifications-section th,
 .qualifications-section td {
-  border: 1px solid #ddd;
-  padding: 8px;
   text-align: left;
+  border: none;
+  outline: none;
 }
 
 .qualifications-section th {

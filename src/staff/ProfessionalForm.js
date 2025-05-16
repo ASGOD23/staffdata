@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Form, Input, Button, Upload, message, Select, InputNumber, Tag, Tooltip, Modal, List } from 'antd';
-import { UploadOutlined, PlusOutlined, MinusCircleOutlined, EyeOutlined, DownloadOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, Upload, message, Select, Tag, Tooltip, Modal, List } from 'antd';
+import { UploadOutlined, PlusOutlined, EyeOutlined, DownloadOutlined } from '@ant-design/icons';
 import './Form.css';
 
 const ProfessionalForm = ({ onSave, onCancel, initialValues }) => {
@@ -27,7 +27,13 @@ const ProfessionalForm = ({ onSave, onCancel, initialValues }) => {
     "BlueCrest College Ghana",
     "Academic City University College",
     "IPMC College of Technology",
-    "NIIT Ghana"
+    "NIIT Ghana",
+    "EC-Council",
+    "Cisco Systems",
+    "CompTIA",
+    "(ISC)²",
+    "Project Management Institute (PMI)",
+    "Microsoft"
   ];
 
   // Qualification options for dropdown
@@ -44,27 +50,6 @@ const ProfessionalForm = ({ onSave, onCancel, initialValues }) => {
     "Project Management Professional (PMP)"
   ];
 
-  // Field of study options for dropdown
-  const fieldOptions = [
-    "Data Science and Analytics",
-    "Networking and Systems Administration",
-    "Cybersecurity",
-    "Software Engineering",
-    "Information Technology",
-    "Computer Science",
-    "Information Systems",
-    "Mobile Application Development"
-  ];
-
-  // Issuing organization options for dropdown
-  const issuingOrgOptions = [
-    "EC-Council",
-    "Cisco Systems",
-    "CompTIA",
-    "(ISC)²",
-    "Project Management Institute (PMI)",
-    "Microsoft"
-  ];
 
   // Generate year options (last 50 years)
   const currentYear = new Date().getFullYear();
@@ -238,27 +223,6 @@ const ProfessionalForm = ({ onSave, onCancel, initialValues }) => {
       </Form.Item>
 
       <Form.Item 
-        name="field" 
-        label="Field of Study" 
-        rules={[{ required: true, message: 'Please select the field of study!' }]}
-      >
-        <Select
-          showSearch
-          placeholder="Select a field of study"
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        >
-          {fieldOptions.map(field => (
-            <Select.Option key={field} value={field}>
-              {field}
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <Form.Item 
         name="yearObtained" 
         label="Year Obtained" 
         rules={[{ required: true, message: 'Please select the year obtained!' }]}
@@ -267,49 +231,6 @@ const ProfessionalForm = ({ onSave, onCancel, initialValues }) => {
           {yearOptions.map(year => (
             <Select.Option key={year} value={year}>
               {year}
-            </Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <Form.Item name="experience" label="Years of Experience">
-        <InputNumber 
-          min={0} 
-          max={50}
-          addonBefore={<Button icon={<MinusCircleOutlined style={{ color: '#ff4d4f' }} />} onClick={() => {
-            const exp = form.getFieldValue('experience') || 0;
-            form.setFieldsValue({ experience: Math.max(0, exp - 1) });
-          }} />}
-          addonAfter={<Button icon={<PlusOutlined style={{ color: '#1890ff' }} />} onClick={() => {
-            const exp = form.getFieldValue('experience') || 0;
-            form.setFieldsValue({ experience: exp + 1 });
-          }} />}
-        />
-      </Form.Item>
-
-      <Form.Item name="formerCompany" label="Former Company">
-        <Input />
-      </Form.Item>
-
-      <Form.Item name="leavingReason" label="Reason for Leaving">
-        <Input />
-      </Form.Item>
-
-      <Form.Item 
-        name="issuingOrg" 
-        label="Issuing Organization"
-      >
-        <Select
-          showSearch
-          placeholder="Select issuing organization"
-          optionFilterProp="children"
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        >
-          {issuingOrgOptions.map(org => (
-            <Select.Option key={org} value={org}>
-              {org}
             </Select.Option>
           ))}
         </Select>

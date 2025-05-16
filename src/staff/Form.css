@@ -1,4 +1,3 @@
-/* src/components/Form.css */
 .qualification-form {
     max-width: 800px;
   margin: 0 auto;
@@ -12,6 +11,10 @@
     margin-bottom: 24px;
     text-align: center;
     color: #1890ff;
+  }
+
+  .qualification-form .ant-form-item-label > label {
+    font-weight: bold;
   }
   
   .form-group {
@@ -79,32 +82,6 @@
     overflow-y: auto;
   }
   
-  .add-new-btn {
-    background-color: #27ae60;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    cursor: pointer;
-  }
-
-  .honor-tags, .publication-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .honor-input, .link-input {
-    width: 200px;
-    margin-right: 8px;
-  }
-  
-  .add-honor-tag, .add-link-tag {
-    background: #fff;
-    border-style: dashed;
-    cursor: pointer;
-  }
   
   .qualification-details h3 {
     color: #1890ff
@@ -119,23 +96,7 @@
     opacity: 0.6;
   }
 
-  /* Add to your Form.css file */
-.honor-tags .ant-tag-close-icon {
-    color: #ff4d4f;
-  }
   
-  .honor-tags .ant-tag-close-icon:hover {
-    color: #ff7875;
-  }
-  
-  .add-honor-tag, .add-link-tag {
-    cursor: pointer;
-    color: #1890ff;
-  }
-  
-  .add-honor-tag:hover, .add-link-tag:hover {
-    color: #40a9ff;
-  }
   
   /* Style for file upload buttons */
   .ant-upload-list-item-card-actions-btn {
@@ -146,19 +107,4 @@
     color: #40a9ff;
   }
   
-  /* Style for View/Download icons */
-  .view-file-button, .download-file-button {
-    color: #1890ff;
-  }
-  
-  .view-file-button:hover, .download-file-button:hover {
-    color: #40a9ff;
-  }
-  
-  .publication-links .ant-tag-close-icon {
-    color: #ff4d4f;
-  }
-  
-  .publication-links .ant-tag-close-icon:hover {
-    color: #ff7875;
-  }
+ 

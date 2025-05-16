@@ -4,23 +4,25 @@ import './ExpandableSection.css';
 import { FaChevronDown, FaChevronUp, FaUser, FaGraduationCap, FaBook, FaBriefcase, FaBuilding } from 'react-icons/fa';
 import { GiMoneyStack } from "react-icons/gi";
 import { BsFillPeopleFill } from "react-icons/bs";
-
-
-// You may use a library like FontAwesome for icons.
-// import { FaChevronDown, FaChevronUp, FaIcon } from 'react-icons/fa';
-import { HistoryOutlined, CreditCardOutlined,PhoneOutlined} from '@ant-design/icons';
+import { CgDetailsMore } from "react-icons/cg";
+import { AiOutlineSolution } from "react-icons/ai";
+import { FaPhone } from "react-icons/fa";
+import { MdWorkHistory } from "react-icons/md";
+import { HiCreditCard } from "react-icons/hi2";
 
 const iconMap = {
   user: <FaUser />,
-  'graduation-cap': <FaGraduationCap />,
+  'graduation-cap': <FaGraduationCap style={{ fontWeight: 'bold',fontSize: 23 }}/>,
   book: <FaBook />,
   briefcase: <FaBriefcase />,
   building: <FaBuilding />,
+  Others: <CgDetailsMore style={{ fontWeight: 'bold',fontSize: 20 }} />,
   money: <GiMoneyStack style={{ fontWeight: "bolder", fontSize: 20 }}/>,
-  history: <HistoryOutlined style={{ fontWeight: 'bold' }}/>,
-  credit: <CreditCardOutlined style={{ fontWeight: 'bold',fontSize: 20 }}/>,
+  history: <MdWorkHistory  style={{ fontWeight: 'bold',fontSize: 23 }}/>  ,
+  credit: <HiCreditCard style={{ fontWeight: 'bold',fontSize: 23 }}/>  ,
   team: <BsFillPeopleFill  style={{ fontWeight: 'bold',fontSize: 20 }}/>,
-  phone: <PhoneOutlined style={{ fontWeight: 'bold',fontSize: 20 }}/>,
+  phone: <FaPhone  style={{ fontWeight: 'bold',fontSize: 20 }}/>  ,
+  Solution: <AiOutlineSolution style={{ fontWeight: 'bold',fontSize: 25 }}/>,
 };
 
 const ExpandableSection = ({ title, icon, children }) => {

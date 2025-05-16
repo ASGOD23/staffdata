@@ -14,6 +14,7 @@ const EmploymentDetailsSection = ({ employmentDetails, onEdit }) => {
           icon={<EditOutlined />}
           onClick={onEdit}
           className="edit-button"
+          style={{color:"white"}}
         >
           Edit Details
         </Button>

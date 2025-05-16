@@ -1,4 +1,3 @@
-// src/components/FileModal.js
 import React from 'react';
 import './FileModal.css';
 

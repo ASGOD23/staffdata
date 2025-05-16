@@ -1,4 +1,3 @@
-// EmergencyContactModal.js
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 import './EmergencyContact.css';
